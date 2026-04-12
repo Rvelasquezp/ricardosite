@@ -1,0 +1,20 @@
+{
+	"name": "utopian",
+	"version": "1.0.0",
+	"description": "Starter Theme for WordPress",
+	"main": "index.js",
+	"scripts": {
+		"start": "wp-scripts start --webpack-src-dir=assets --webpack-copy-php",
+		"build": "wp-scripts build --webpack-src-dir=assets --webpack-copy-php",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Utopian",
+	"license": "ISC",
+	"dependencies": {
+		"@fortawesome/fontawesome-pro": "^6.5.1",
+		"@wordpress/scripts": "*",
+		"gsap": "npm:@gsap/business@^3.12.7",
+		"swiper": "^11.0.5"
+	}
+}

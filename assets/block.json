@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "utopian/main",
+	"title": "Main",
+	"textdomain": "utopian",
+	"supports": {
+		"align": ["full"]
+	},
+	"category": "utopian",
+	"viewScript": "file:./index.js"
+}

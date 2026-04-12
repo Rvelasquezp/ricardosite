@@ -1,0 +1,145 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"settings": {
+		"typography": {
+			"fontFamilies": [
+				{
+					"fontFamily": "area-normal",
+					"slug": "area-normal",
+					"name": "Area Normal"
+				},
+				{
+					"fontFamily": "roca",
+					"slug": "roca",
+					"name": "Roca"
+				},
+				{
+					"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
+					"slug": "system-fonts",
+					"name": "System Fonts"
+				}
+			],
+			"lineHeight": true
+		},
+		"spacing": {
+			"margin": true,
+			"padding": true,
+			"blockGap": true
+		},
+		"color": {
+			"link": true,
+			"palette": [
+				{
+					"color": "#264338",
+					"name": "Vert",
+					"slug": "vert"
+				}
+			]
+		},
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		},
+		"layout": {
+			"contentSize": "85%",
+			"wideSize": "95.704176334106729%"
+		}
+	},
+	"styles": {
+		"color": {
+			"background": "var(--wp--preset--color--yellow)",
+			"text": "var(--wp--preset--color--vert)"
+		},
+		"spacing": {
+			"margin": {
+				"top": "0em",
+				"right": "0em",
+				"bottom": "0em",
+				"left": "0em"
+			},
+			"padding": {
+				"top": "0em",
+				"right": "0em",
+				"bottom": "0em",
+				"left": "0em"
+			},
+			"blockGap": "0"
+		},
+		"blocks": {
+			"core/heading": {
+				"typography": {
+					"fontFamily": "var(--wp--preset--font-family--roca)",
+					"fontWeight": "700"
+				},
+				"spacing": {
+					"margin": {
+						"top": "0em",
+						"right": "0em",
+						"bottom": "0em",
+						"left": "0em"
+					}
+				}
+			},
+			"core/button": {
+				"variations": {
+					"default": {
+						"border": {
+							"radius": "0",
+							"style": "solid"
+						},
+						"typography": {
+							"fontWeight": "500"
+						},
+						"spacing": {
+							"padding": {
+								"right": "4.45em",
+								"left": "4.45em"
+							}
+						}
+					}
+				}
+			}
+		},
+		"elements": {
+			"h1": {
+				"typography": {
+					"fontSize": "7em",
+					"fontWeight": "900"
+				}
+			},
+			"h2": {
+				"typography": {
+					"fontSize": "3em"
+				}
+			},
+			"h3": {
+				"typography": {
+					"fontSize": "1.5em"
+				}
+			},
+			"h4": {
+				"typography": {
+					"fontSize": "1.4em"
+				}
+			},
+			"h5": {
+				"typography": {
+					"fontSize": "1.2em"
+				}
+			},
+			"h6": {
+				"typography": {
+					"fontSize": "1.1em"
+				}
+			}
+		},
+		"typography": {
+			"fontFamily": "var(--wp--preset--font-family--area-normal)",
+			"fontSize": "1em",
+			"fontWeight": "500"
+		}
+	},
+	"version": 2
+}

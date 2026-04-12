@@ -1,0 +1,17 @@
+html {
+	visibility: visible !important;
+}
+
+.wp-block {
+	transition: 0.2s all ease-in-out;
+}
+
+.wp-block.is-selected {
+	background-color: #e0e0e0;
+	padding: 8px;
+}
+
+ul.wp-block.is-selected,
+ol.wp-block.is-selected {
+	padding: 8px 8px 8px 48px;
+}

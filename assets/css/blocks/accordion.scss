@@ -1,0 +1,95 @@
+.accordion {
+    &.open {
+        .accordionToggle {
+            .toggle {
+                .icon_plus_minus {
+                    transform: rotate(180deg);
+                    .vertical {
+                        transform: scaleY(0);
+                        opacity: 0;
+                    }
+                }
+            }
+
+            &::after {
+                opacity: 0;
+            }
+        }
+    }
+
+    .accordionToggle {
+        -webkit-appearance: none;
+        padding: 2.5em 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        color: #264338;
+        align-items: center;
+        margin-bottom: 2.5em;
+        gap: 1rem;
+        position: relative;
+
+        &::after {
+            content: "";
+            height: 1px;
+            background-color:#264338;
+            width: 100%;
+            transition: 0.3s all ease-in-out;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0 auto;
+        }
+
+        .title {
+            text-align: left;
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        .toggle {
+            .icon_plus_minus {
+                width: 1.9145rem;
+                height: 1.9145rem;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;				
+                transition: 0.3s ease;
+            
+                .horizontal,
+                .vertical {
+                    position: absolute;
+                    background: #264338;
+                    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                                opacity 0.2s ease;
+                    border-radius: 2px;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            
+                .horizontal {
+                    width: 28px;
+                    height: 3px;
+                }
+            
+                .vertical {
+                    width: 3px;
+                    height: 28px;
+                    transform-origin: center;
+                }
+            }
+        }
+    }
+
+    .accordionContent {
+        overflow: hidden;
+        will-change: height;
+    }
+}

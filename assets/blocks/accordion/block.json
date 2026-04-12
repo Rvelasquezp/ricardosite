@@ -1,0 +1,17 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "utopian/accordion",
+	"title": "Accordion",
+	"supports": {
+		"align": true
+	},
+	"category": "utopian",
+	"attributes": {
+		"title": { "type": "string", "default": "Accordion Title" },
+		"text": { "type": "string", "default": "Open" },
+		"open": { "type": "boolean", "default": false }
+	},
+	"editorScript": "file:./index.js",
+	"render": "file:./render.php"
+}

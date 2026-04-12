@@ -1,0 +1,12 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "utopian/editor",
+	"title": "Editor",
+	"textdomain": "utopian",
+	"supports": {
+		"align": ["full"]
+	},
+	"category": "utopian",
+	"viewScript": "file:./editor.js"
+}
