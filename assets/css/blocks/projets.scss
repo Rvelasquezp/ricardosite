@@ -14,6 +14,9 @@ $projets-radius-sm: 16px;
 
 $projets-breakpoint-md: 900px;
 
+// 👇 Padding lateral del bloque
+$projets-side-padding: 7.8125vw;
+
 // ---------- Wrapper exterior con background ----------
 .projets {
 	position: relative;
@@ -26,14 +29,13 @@ $projets-breakpoint-md: 900px;
 	padding-top: 120px;
 	padding-bottom: 120px;
 	background-attachment: fixed;
-	overflow: hidden;
-	padding-left: 7.8125vw;
-	padding-right: 7.8125vw;
+	overflow: hidden; // 👈 imprescindible: clipea el negative margin del thumbs
+	padding-left: $projets-side-padding;
+	padding-right: $projets-side-padding; // 👈 RESTAURADO
 }
 
 // ---------- Bloque ----------
 .projets-block {
-	// CSS custom properties expuestas para overrides desde el editor / tema.
 	--projets-bg:        #{$projets-bg};
 	--projets-card-bg:   #{$projets-card-bg};
 	--projets-text:      #{$projets-text};
@@ -45,7 +47,7 @@ $projets-breakpoint-md: 900px;
 
 	position: relative;
 	color: var(--projets-text);
-	padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem);
+	padding: clamp(4rem, 6vw, 6rem) 0;
 	box-sizing: border-box;
 
 	*,
@@ -56,10 +58,11 @@ $projets-breakpoint-md: 900px;
 }
 
 // ---------- MAIN slider ----------
+// 👇 Hereda el padding-right de .projets → NO llega al borde derecho
 .projets-main {
 	border-radius: 10px;
 	overflow: hidden;
-	margin-bottom: 1.25rem;
+	margin-bottom: 3rem;
 
 	&__slide {
 		position: relative;
@@ -68,7 +71,6 @@ $projets-breakpoint-md: 900px;
 		overflow: hidden;
 		min-height: clamp(360px, 45vw, 800px);
 
-		// 👇 Hover sobre el slide → revela panel glass + tags + escala imagen
 		&:hover {
 			.projets-main__content,
 			.projets-main__tags {
@@ -77,14 +79,13 @@ $projets-breakpoint-md: 900px;
 			}
 
 			.projets-main__media img {
-				transform: scale(1.05);
+				transform: scale(1.02);
 			}
 		}
 	}
 
-	// ---------- Imagen de fondo (siempre visible) ----------
 	&__media {
-		position: absolute;
+		position: relative;
 		inset: 0;
 		z-index: 1;
 		overflow: hidden;
@@ -99,7 +100,6 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
-	// ---------- Panel glass (oculto por defecto, visible en hover) ----------
 	&__content {
 		position: absolute;
 		top: 0;
@@ -108,13 +108,12 @@ $projets-breakpoint-md: 900px;
 		padding: 30px;
 		width: 100%;
 		height: 100%;
-		background: rgba(2, 7, 23, 0.79);
+		background: rgba(2, 7, 23, 0.69);
 		-webkit-backdrop-filter: blur(7px);
 		backdrop-filter: blur(7px);
 		border-radius: 10px;
 		text-align: left;
 
-		// 👇 Estado oculto (igual que tu figcaption original)
 		opacity: 0;
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
@@ -127,7 +126,6 @@ $projets-breakpoint-md: 900px;
 		gap: 1rem;
 	}
 
-	// ---------- Título ----------
 	&__title {
 		font-family: var(--fuentePrincipal);
 		font-size: clamp(2.2rem, 4.5vw, 4.6rem);
@@ -138,7 +136,6 @@ $projets-breakpoint-md: 900px;
 		margin: 0;
 	}
 
-	// ---------- Descripción ----------
 	&__desc {
 		text-align: left;
 		color: #fff !important;
@@ -150,12 +147,12 @@ $projets-breakpoint-md: 900px;
 		margin: 0;
 		max-width: 400px;
 		width: 100%;
+
 		@media screen and (max-width: 768px) {
 			display: none;
 		}
 	}
 
-	// ---------- CTA "Voir le projet" ----------
 	&__cta {
 		text-align: right;
 		color: #a6dbf8;
@@ -187,7 +184,6 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
-	// ---------- Tags / Lenguages (también ocultos hasta hover) ----------
 	&__tags {
 		position: absolute;
 		bottom: 30px;
@@ -200,7 +196,6 @@ $projets-breakpoint-md: 900px;
 		flex-wrap: wrap;
 		gap: 10px;
 
-		// 👇 Estado oculto, sincronizado con __content
 		opacity: 0;
 		transition: opacity 0.3s, transform 0.3s;
 	}
@@ -223,13 +218,11 @@ $projets-breakpoint-md: 900px;
 		justify-content: center;
 	}
 
-	// ---------- Responsive ----------
 	@media (max-width: $projets-breakpoint-md) {
 		&__slide {
 			min-height: 0;
 			aspect-ratio: 4 / 5;
 
-			// 📱 En mobile no hay hover → mostramos siempre el contenido
 			.projets-main__content,
 			.projets-main__tags {
 				opacity: 1;
@@ -260,8 +253,10 @@ $projets-breakpoint-md: 900px;
 }
 
 // ---------- THUMBS slider ----------
+// 👇 Negative margin para "escapar" del padding-right de .projets y llegar al borde
 .projets-thumbs-wrapper {
 	position: relative;
+	margin-right: -#{$projets-side-padding};
 }
 
 .projets-thumbs {
@@ -269,24 +264,25 @@ $projets-breakpoint-md: 900px;
 }
 
 .projets-thumb {
-	// 👇 TODAS las declaraciones primero, ANTES de cualquier regla anidada (&...)
 	cursor: pointer;
 	position: relative;
 	background: var(--projets-card-bg);
 	border-radius: var(--projets-radius-sm);
 	overflow: hidden;
-	min-height: 320px;
+	min-height: 480px;
 	height: auto;
-	opacity: 0.55; // por defecto inactiva (apagada)
+	opacity: 0.55;
 	transition: transform 0.3s ease, opacity 0.3s ease;
 
-	// 👇 A partir de aquí TODAS las reglas anidadas
+	@media screen and (max-width: 768px) {
+		min-height: 340px;
+	}
+
 	&:focus-visible {
 		outline: 2px solid var(--projets-accent);
 		outline-offset: 3px;
 	}
 
-	// 👇 Hover O thumb activa → revela panel glass + tags + escala imagen
 	&:hover,
 	&.swiper-slide-thumb-active {
 		.projets-thumb__content,
@@ -296,22 +292,19 @@ $projets-breakpoint-md: 900px;
 		}
 
 		.projets-thumb__media img {
-			transform: scale(1.05);
+			transform: scale(1.02);
 		}
 	}
 
-	// Hover: leve elevación + opacidad intermedia
 	&:hover {
 		transform: translateY(-4px);
 		opacity: 0.85;
 	}
 
-	// Active: opacidad completa (la thumb del slide actualmente visible)
 	&.swiper-slide-thumb-active {
 		opacity: 1;
 	}
 
-	// ---------- Imagen de fondo (siempre visible) ----------
 	&__media {
 		position: absolute;
 		inset: 0;
@@ -328,7 +321,6 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
-	// ---------- Panel glass (oculto por defecto, visible en hover/active) ----------
 	&__content {
 		position: absolute;
 		top: 0;
@@ -343,7 +335,6 @@ $projets-breakpoint-md: 900px;
 		border-radius: var(--projets-radius-sm);
 		text-align: left;
 
-		// 👇 Estado oculto
 		opacity: 0;
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
@@ -355,17 +346,14 @@ $projets-breakpoint-md: 900px;
 		gap: 0.75rem;
 	}
 
-	// ---------- Título ----------
 	&__title {
 		font-family: var(--fuentePrincipal);
-		// font-size: 1.5rem;
 		font-weight: 700;
 		line-height: 1.15;
 		margin: 0;
 		color: #fff;
 	}
 
-	// ---------- Descripción ----------
 	&__desc {
 		text-align: left;
 		color: #fff !important;
@@ -374,12 +362,15 @@ $projets-breakpoint-md: 900px;
 		font-weight: 400;
 		line-height: 1.4;
 		margin: 0;
+		max-width: 320px;
+		width: 100%;
+
 		@media screen and (max-width: 768px) {
+			max-width: 300px;
 			display: none;
 		}
 	}
 
-	// ---------- CTA "Voir le projet" ----------
 	&__cta {
 		text-align: right;
 		color: #a6dbf8;
@@ -390,7 +381,6 @@ $projets-breakpoint-md: 900px;
 		letter-spacing: 1px;
 		text-transform: uppercase;
 		text-decoration: none;
-
 		z-index: 4;
 		display: inline-flex;
 		align-items: center;
@@ -409,7 +399,6 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
-	// ---------- Tags / Lenguages ----------
 	&__tags {
 		position: absolute;
 		bottom: 20px;
@@ -423,7 +412,6 @@ $projets-breakpoint-md: 900px;
 		flex-wrap: wrap;
 		gap: 6px;
 
-		// 👇 Estado oculto, sincronizado con __content
 		opacity: 0;
 		transition: opacity 0.3s, transform 0.3s;
 	}
@@ -445,9 +433,7 @@ $projets-breakpoint-md: 900px;
 		justify-content: center;
 	}
 
-	// ---------- Responsive ----------
 	@media (max-width: $projets-breakpoint-md) {
-		// 📱 Mobile no tiene hover → mostramos contenido siempre
 		.projets-thumb__content,
 		.projets-thumb__tags {
 			opacity: 1;
@@ -458,11 +444,16 @@ $projets-breakpoint-md: 900px;
 // ---------- Navigation ----------
 .projets-nav {
 	position: absolute;
+	// 👇 Alineada con el borde derecho del MAIN (no del viewport)
 	right: 0;
 	bottom: 0;
 	display: flex;
 	gap: 0.75rem;
 	z-index: 5;
+
+	@media screen and (max-width: 768px) {
+		bottom: -20px;
+	}
 
 	&__btn {
 		all: unset;
