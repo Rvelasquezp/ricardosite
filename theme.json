@@ -9,15 +9,15 @@
 					"name": "Area Normal"
 				},
 				{
-					"fontFamily": "roca",
-					"slug": "roca",
-					"name": "Roca"
+					"fontFamily": "\"Lexend Deca\", sans-serif",
+					"slug": "lexend-deca",
+					"name": "Lexend Deca"
 				},
 				{
-					"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
-					"slug": "system-fonts",
-					"name": "System Fonts"
-				}
+					"fontFamily": "\"Architects Daughter\", cursive",
+					"slug": "architects-daughter",
+					"name": "Architects Daughter"
+				}		
 			],
 			"lineHeight": true
 		},
@@ -30,10 +30,28 @@
 			"link": true,
 			"palette": [
 				{
-					"color": "#264338",
-					"name": "Vert",
-					"slug": "vert"
+					"color": "#0a2144",
+					"name": "BlueText",
+					"slug": "bluetext"
+				},	{
+					"color": "#ffffff",
+					"name": "White",
+					"slug": "white"
+				},	{
+					"color": "#bbe7ff",
+					"name": "BlueButton",
+					"slug": "bluebutton"
 				}
+				,	{
+					"color": "#212529",
+					"name": "Text",
+					"slug": "text"
+				}
+				,	{
+					"color": "#628CC8",
+					"name": "Bluesemi",
+					"slug": "bluesemi"
+				}				
 			]
 		},
 		"border": {
@@ -105,33 +123,38 @@
 		"elements": {
 			"h1": {
 				"typography": {
-					"fontSize": "7em",
-					"fontWeight": "900"
+					"fontSize": "10.4em",
+					"fontWeight": "600"
 				}
 			},
 			"h2": {
 				"typography": {
-					"fontSize": "3em"
+					"fontSize": "6.8em",
+					"fontWeight": "600"
 				}
 			},
 			"h3": {
 				"typography": {
-					"fontSize": "1.5em"
+					"fontSize": "3.2em",
+					"fontWeight": "600"
 				}
 			},
 			"h4": {
 				"typography": {
-					"fontSize": "1.4em"
+					"fontSize": "2.4em",
+					"fontWeight": "600"
 				}
 			},
 			"h5": {
 				"typography": {
-					"fontSize": "1.2em"
+					"fontSize": "2.2em",
+					"fontWeight": "600"
 				}
 			},
 			"h6": {
 				"typography": {
-					"fontSize": "1.1em"
+					"fontSize": "2em",
+					"fontWeight": "600"
 				}
 			}
 		},

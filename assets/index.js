@@ -3,12 +3,16 @@ import "/assets/css/style.scss";
 
 // import parts styles
 import "/assets/css/parts/paragraph.scss";
+import "/assets/css/parts/header.scss";
 
 // import block styles
 import "/assets/css/blocks/accordion.scss";
+import "/assets/css/blocks/hamburguer.scss";
 
 // import Swiper styles
 import "swiper/css";
+
+import Header from "/assets/js/header.js";
 
 // import js libraries
 import Swiper from "swiper";
@@ -16,6 +20,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { prepareAccordions } from "./js/prepareAccordions";
+import  PrincipalBannerParallax from "./js/PrincipalBannerParallax";
+import  HeaderShrink from "./js/HeaderShrink";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -29,37 +35,37 @@ let scroller = ScrollSmoother.create({
 
 // padding space header
 
-const headerMain = document.querySelector(".header-main");
-const wpAdminBar = document.getElementById("wpadminbar");
-const heroBanner = document.querySelector(".padding_space");
+// const headerMain = document.querySelector(".header-main");
+// const wpAdminBar = document.getElementById("wpadminbar");
+// const heroBanner = document.querySelector(".padding_space");
 
-if (heroBanner) {
-	function setHeroPaddingTop() {
-		let isMobile = window.innerWidth < 768; // puedes ajustar este valor
-		let totalOffset = headerMain ? headerMain.clientHeight : 0;
+// if (heroBanner) {
+// 	function setHeroPaddingTop() {
+// 		let isMobile = window.innerWidth < 768; // puedes ajustar este valor
+// 		let totalOffset = headerMain ? headerMain.clientHeight : 0;
 
-		if (wpAdminBar) {
-			if (isMobile) {
-				heroBanner.style.paddingTop = `${totalOffset - 36}px `; // ejemplo: valor fijo para mobile
-			} else {
-				// Comportamiento en pantallas grandes
-				heroBanner.style.paddingTop = `${totalOffset}px`;
-			}
-		} else {
-			if (isMobile) {
-				// Comportamiento en pantallas pequeñas
-				heroBanner.style.paddingTop = `${totalOffset - 6}px`; // ejemplo: valor fijo para mobile
-			} else {
-				// Comportamiento en pantallas grandes
-				heroBanner.style.paddingTop = `${totalOffset}px`;
-			}
-		}
-	}
+// 		if (wpAdminBar) {
+// 			if (isMobile) {
+// 				heroBanner.style.paddingTop = `${totalOffset - 36}px `; // ejemplo: valor fijo para mobile
+// 			} else {
+// 				// Comportamiento en pantallas grandes
+// 				heroBanner.style.paddingTop = `${totalOffset}px`;
+// 			}
+// 		} else {
+// 			if (isMobile) {
+// 				// Comportamiento en pantallas pequeñas
+// 				heroBanner.style.paddingTop = `${totalOffset - 6}px`; // ejemplo: valor fijo para mobile
+// 			} else {
+// 				// Comportamiento en pantallas grandes
+// 				heroBanner.style.paddingTop = `${totalOffset}px`;
+// 			}
+// 		}
+// 	}
 
-	setHeroPaddingTop();
-	// window.addEventListener("resize", setHeroPaddingTop);
-	ScrollTrigger.refresh();
-}
+// 	setHeroPaddingTop();
+// 	// window.addEventListener("resize", setHeroPaddingTop);
+// 	ScrollTrigger.refresh();
+// }
 
 // padding space header
 
@@ -394,7 +400,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Add animation cibizer and rotate
 
+Header(scroller);
 prepareAccordions(gsap);
+PrincipalBannerParallax();
+HeaderShrink();
 
 gsap.to("html", {
 	autoAlpha: 1,

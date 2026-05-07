@@ -24,36 +24,58 @@ h6 {
 }
 
 h1 {
-	font-size: clamp(3.2rem, 4.2vw, 7rem);
+	font-size: clamp(9.6rem, 4.2vw, 10.6rem);
 	line-height: 1.2;
+	&:has(.mosaic-icon) {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 12px;
+      }
+
+	  @media screen and (max-width: 1200px) {
+		font-size: clamp(8.6rem, 4.2vw, 10.6rem);
+	  }
 }
 
 h2 {
-	font-size: clamp(3.5rem, 4vw, 6rem);
+	font-size: clamp(4.8rem, 4vw, 6.8rem);
 	line-height: 1.2;
 	font-weight: 600 !important;
+	&:has(.mosaic-icon) {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 12px;
+      }
 }
 
 h3 {
-	font-size: clamp(2rem, 2.2vw, 4rem);
+	font-size: clamp(2.2rem, 2.2vw, 3.2rem);
 	line-height: 1.2;
 	font-weight: 600 !important;
+	&:has(.mosaic-icon) {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 12px;
+      }
 }
 
 h4 {
-	font-size: clamp(2.4rem, 3vw, 3rem);
+	font-size: clamp(2.2rem, 3vw, 2.8rem);
 	line-height: 1.2;
 	font-weight: 600 !important;
 }
 
 h5 {
-	font-size: clamp(2rem, 3vw, 2.5rem);
+	font-size: clamp(1.8rem, 3vw, 2.2rem);
 	line-height: 1.2;
 	font-weight: 600 !important;
 }
 
 h6 {
-	font-size: clamp(1.8rem, 3vw, 2.2rem);
+	font-size: clamp(1.6rem, 3vw, 2rem);
 	line-height: 1.2;
 	font-weight: 600 !important;
 }
@@ -205,4 +227,36 @@ h6 {
 .move_right {
 	@include animation-direction(x, 120px);
 	@include animation-direction-img(x, 100px);
+}
+
+.v1 {
+	.wp-block-button {
+		@media screen and (max-width: 991px) {
+			width: 100%;
+		}
+
+		.wp-block-button__link {
+			color: #0a2144;
+			font-family: var(--fuentePrincipal);
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 600;
+			line-height: normal;
+			letter-spacing: 1.4px;
+			text-transform: uppercase;
+			padding: 22px 38px;
+			background-color: #bbe7ff;
+			border: 2px solid #bbe7ff;
+			border-radius: 4px;
+			transition: background-color 0.2s ease-in-out;
+	
+			&:hover {
+			  background-color: #ebf8ff;
+			}
+	
+			&:focus {
+			  background-color: #27698c;
+			}
+		}
+	}
 }
