@@ -44,8 +44,8 @@
 				}
 				,	{
 					"color": "#212529",
-					"name": "Text",
-					"slug": "text"
+					"name": "DarkText",
+					"slug": "darktext"
 				}
 				,	{
 					"color": "#628CC8",

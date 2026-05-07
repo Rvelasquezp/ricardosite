@@ -1,0 +1,496 @@
+// =========================================================
+// Block: Projets — Slider (Swiper)
+// =========================================================
+
+// ---------- Variables SCSS ----------
+$projets-bg:        #1c1f26;
+$projets-card-bg:   #14171c;
+$projets-text:      #ffffff;
+$projets-muted:     rgba(255, 255, 255, 0.65);
+$projets-accent:    #5BA9C9;
+$projets-border:    rgba(255, 255, 255, 0.18);
+$projets-radius:    24px;
+$projets-radius-sm: 16px;
+
+$projets-breakpoint-md: 900px;
+
+// ---------- Wrapper exterior con background ----------
+.projets {
+	position: relative;
+	width: 100vw;
+	height: auto;
+	background-image: url('/assets/images/section3_back.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding-top: 120px;
+	padding-bottom: 120px;
+	background-attachment: fixed;
+	overflow: hidden;
+	padding-left: 7.8125vw;
+	padding-right: 7.8125vw;
+}
+
+// ---------- Bloque ----------
+.projets-block {	
+	// CSS custom properties expuestas para overrides desde el editor / tema.
+	--projets-bg:        #{$projets-bg};
+	--projets-card-bg:   #{$projets-card-bg};
+	--projets-text:      #{$projets-text};
+	--projets-muted:     #{$projets-muted};
+	--projets-accent:    #{$projets-accent};
+	--projets-border:    #{$projets-border};
+	--projets-radius:    #{$projets-radius};
+	--projets-radius-sm: #{$projets-radius-sm};
+
+	position: relative;
+	color: var(--projets-text);
+	padding: clamp(3rem, 6vw, 6rem) clamp(1rem, 4vw, 3rem);
+	box-sizing: border-box;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
+// ---------- MAIN slider ----------
+.projets-main {
+	border-radius: 10px;
+	overflow: hidden;
+	margin-bottom: 1.25rem;
+
+	&__slide {
+		position: relative;
+		background: var(--projets-card-bg);
+		border-radius: 10px;
+		overflow: hidden;
+		min-height: clamp(360px, 45vw, 800px);
+
+		// 👇 Hover sobre el slide → revela panel glass + tags + escala imagen
+		&:hover {
+			.projets-main__content,
+			.projets-main__tags {
+				opacity: 1;
+				transform: translate(0, 0);
+			}
+
+			.projets-main__media img {
+				transform: scale(1.05);
+			}
+		}
+	}
+
+	// ---------- Imagen de fondo (siempre visible) ----------
+	&__media {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			transition: transform 0.4s ease;
+		}
+	}
+
+	// ---------- Panel glass (oculto por defecto, visible en hover) ----------
+	&__content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		padding: 30px;
+		width: 100%;
+		height: 100%;
+		background: rgba(2, 7, 23, 0.79);
+		-webkit-backdrop-filter: blur(7px);
+		backdrop-filter: blur(7px);
+		border-radius: 10px;
+		text-align: left;
+
+		// 👇 Estado oculto (igual que tu figcaption original)
+		opacity: 0;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+		transition: transform 0.3s, opacity 0.3s;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 1rem;
+	}
+
+	// ---------- Título ----------
+	&__title {
+		font-family: var(--fuentePrincipal);
+		font-size: clamp(2.2rem, 4.5vw, 4.6rem);
+		font-style: normal;
+		font-weight: 800;
+		line-height: 1.05;
+		color: #fff;
+		margin: 0;
+	}
+
+	// ---------- Descripción ----------
+	&__desc {
+		text-align: left;
+		color: #fff !important;
+		font-family: var(--fuentePrincipal);
+		font-size: 18px;
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+		margin: 0;
+		max-width: 400px;
+		width: 100%;
+		@media screen and (max-width: 768px) {
+			display: none;
+		}
+	}
+
+	// ---------- CTA "Voir le projet" ----------
+	&__cta {
+		text-align: right;
+		color: #a6dbf8;
+		font-family: var(--fuentePrincipal);
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 600;
+		line-height: normal;
+		letter-spacing: 1.2px;
+		text-transform: uppercase;
+		text-decoration: none;
+		position: absolute;
+		bottom: 30px;
+		right: 30px;
+		display: inline-flex;
+		align-items: center;
+		transition: opacity 0.25s ease, transform 0.25s ease;
+
+		&:hover {
+			opacity: 0.85;
+			transform: translateX(3px);
+		}
+
+		span + svg,
+		svg {
+			margin-left: 8px;
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	// ---------- Tags / Lenguages (también ocultos hasta hover) ----------
+	&__tags {
+		position: absolute;
+		bottom: 30px;
+		left: 30px;
+		z-index: 3;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+
+		// 👇 Estado oculto, sincronizado con __content
+		opacity: 0;
+		transition: opacity 0.3s, transform 0.3s;
+	}
+
+	&__tag {
+		color: #f6f8f9;
+		font-family: var(--fuentePrincipal);
+		font-size: 12px;
+		font-style: normal;
+		font-weight: 300;
+		line-height: normal;
+		letter-spacing: 0.6px;
+		border-radius: 6px;
+		border: 1px solid #f6f8f9;
+		text-transform: uppercase;
+		padding: 6px 12px;
+		background: transparent;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	// ---------- Responsive ----------
+	@media (max-width: $projets-breakpoint-md) {
+		&__slide {
+			min-height: 0;
+			aspect-ratio: 4 / 5;
+
+			// 📱 En mobile no hay hover → mostramos siempre el contenido
+			.projets-main__content,
+			.projets-main__tags {
+				opacity: 1;
+			}
+		}
+
+		&__content {
+			padding: 20px;
+			gap: 0.75rem;
+		}
+
+		&__desc {
+			font-size: 16px;
+			max-width: 100%;
+		}
+
+		&__cta {
+			position: relative;
+			bottom: unset;
+			right: unset;
+		}
+
+		&__tags {
+			bottom: 20px;
+			left: 20px;
+		}
+	}
+}
+
+// ---------- THUMBS slider ----------
+.projets-thumbs-wrapper {
+	position: relative;
+}
+
+.projets-thumbs {
+	padding-bottom: 4rem; // espacio para flechas
+}
+
+.projets-thumb {
+	// 👇 TODAS las declaraciones primero, ANTES de cualquier regla anidada (&...)
+	cursor: pointer;
+	position: relative;
+	background: var(--projets-card-bg);
+	border-radius: var(--projets-radius-sm);
+	overflow: hidden;
+	min-height: 320px;
+	height: auto;
+	opacity: 0.55; // por defecto inactiva (apagada)
+	transition: transform 0.3s ease, opacity 0.3s ease;
+
+	// 👇 A partir de aquí TODAS las reglas anidadas
+	&:focus-visible {
+		outline: 2px solid var(--projets-accent);
+		outline-offset: 3px;
+	}
+
+	// Hover sobre el thumb → revela panel glass + tags + escala imagen (mismo patrón que main)
+	&:hover {
+		transform: translateY(-4px);
+		opacity: 0.85;
+
+		.projets-thumb__content,
+		.projets-thumb__tags {
+			opacity: 1;
+			transform: translate(0, 0);
+		}
+
+		.projets-thumb__media img {
+			transform: scale(1.05);
+		}
+	}
+
+	&.swiper-slide-thumb-active {
+		opacity: 1; // la thumb del slide actualmente visible
+	}
+
+	// ---------- Imagen de fondo (siempre visible) ----------
+	&__media {
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		overflow: hidden;
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			transition: transform 0.4s ease;
+		}
+	}
+
+	// ---------- Panel glass (oculto por defecto, visible en hover) ----------
+	&__content {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		padding: 20px;
+		width: 100%;
+		height: 100%;
+		background: rgba(2, 7, 23, 0.79);
+		-webkit-backdrop-filter: blur(7px);
+		backdrop-filter: blur(7px);
+		border-radius: var(--projets-radius-sm);
+		text-align: left;
+
+		// 👇 Estado oculto
+		opacity: 0;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		transition: transform 0.3s, opacity 0.3s;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		gap: 0.75rem;
+	}
+
+	// ---------- Título ----------
+	&__title {
+		font-family: var(--fuentePrincipal);
+		// font-size: 1.5rem;
+		font-weight: 700;
+		line-height: 1.15;
+		margin: 0;
+		color: #fff;
+	}
+
+	// ---------- Descripción ----------
+	&__desc {
+		text-align: left;
+		color: #fff !important;
+		font-family: var(--fuentePrincipal);
+		font-size: 14px;
+		font-weight: 400;
+		line-height: 1.4;
+		margin: 0;
+		@media screen and (max-width: 768px) {
+			display: none;
+		}
+	}
+
+	// ---------- CTA "Voir le projet" ----------
+	&__cta {
+		text-align: right;
+		color: #a6dbf8;
+		font-family: var(--fuentePrincipal);
+		font-size: 11px;
+		font-weight: 600;
+		line-height: normal;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		text-decoration: none;
+
+		z-index: 4;
+		display: inline-flex;
+		align-items: center;
+		transition: opacity 0.25s ease, transform 0.25s ease;
+
+		&:hover {
+			opacity: 0.85;
+			transform: translateX(3px);
+		}
+
+		span + svg,
+		svg {
+			margin-left: 6px;
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	// ---------- Tags / Lenguages ----------
+	&__tags {
+		position: absolute;
+		bottom: 20px;
+		left: 20px;
+		z-index: 3;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		padding-right: 30px;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+
+		// 👇 Estado oculto, sincronizado con __content
+		opacity: 0;
+		transition: opacity 0.3s, transform 0.3s;
+	}
+
+	&__tag {
+		color: #f6f8f9;
+		font-family: var(--fuentePrincipal);
+		font-size: 10px;
+		font-weight: 300;
+		line-height: normal;
+		letter-spacing: 0.5px;
+		border-radius: 6px;
+		border: 1px solid #f6f8f9;
+		text-transform: uppercase;
+		padding: 4px 8px;
+		background: transparent;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	// ---------- Responsive ----------
+	@media (max-width: $projets-breakpoint-md) {
+		// 📱 Mobile no tiene hover → mostramos contenido siempre
+		.projets-thumb__content,
+		.projets-thumb__tags {
+			opacity: 1;
+		}
+	}
+}
+
+// ---------- Navigation ----------
+.projets-nav {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	gap: 0.75rem;
+	z-index: 5;
+
+	&__btn {
+		all: unset;
+		width: 44px;
+		height: 44px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--projets-border);
+		border-radius: 50%;
+		color: var(--projets-text);
+		cursor: pointer;
+		transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+
+		&:hover {
+			background: var(--projets-accent);
+			border-color: var(--projets-accent);
+			color: #fff;
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--projets-accent);
+			outline-offset: 3px;
+		}
+
+		&.swiper-button-disabled {
+			opacity: 0.35;
+			cursor: not-allowed;
+		}
+
+		svg {
+			width: 22px;
+			height: 22px;
+		}
+	}
+}

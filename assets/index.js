@@ -8,6 +8,7 @@ import "/assets/css/parts/header.scss";
 // import block styles
 import "/assets/css/blocks/accordion.scss";
 import "/assets/css/blocks/hamburguer.scss";
+import "/assets/css/blocks/projets.scss";
 
 // import Swiper styles
 import "swiper/css";
@@ -22,6 +23,9 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import { prepareAccordions } from "./js/prepareAccordions";
 import  PrincipalBannerParallax from "./js/PrincipalBannerParallax";
 import  HeaderShrink from "./js/HeaderShrink";
+import projetsSlider from "./js/projetsSlider";
+
+
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -404,6 +408,7 @@ Header(scroller);
 prepareAccordions(gsap);
 PrincipalBannerParallax();
 HeaderShrink();
+projetsSlider();
 
 gsap.to("html", {
 	autoAlpha: 1,

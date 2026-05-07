@@ -162,6 +162,7 @@ class JSXBlock
 
 new JSXBlock('accordion', true);
 new JSXBlock('hamburger', true);
+new JSXBlock('projets', true);
 
 // change icon login page
 function custom_login_logo_svg() {
@@ -244,24 +245,24 @@ function create_posttype()
 		)
 	);
 
-	register_taxonomy(
-		'categorie-equipe',
-		'equipe',
-		array(
-			'hierarchical' => true,
-			'label' => 'Catégorie équipe',
-			'query_var' => true,
-			'show_in_rest' => true,
-			'rewrite' => array(
-				'slug' => 'categorie-equipe',
-				'with_front' => false
-			),
-			'public' => true,
-            'show_ui' => true,
-            'show_admin_column' => true,
-            'show_in_nav_menus' => true,
-		)
-	);
+	// register_taxonomy(
+	// 	'categorie-equipe',
+	// 	'equipe',
+	// 	array(
+	// 		'hierarchical' => true,
+	// 		'label' => 'Catégorie équipe',
+	// 		'query_var' => true,
+	// 		'show_in_rest' => true,
+	// 		'rewrite' => array(
+	// 			'slug' => 'categorie-equipe',
+	// 			'with_front' => false
+	// 		),
+	// 		'public' => true,
+    //         'show_ui' => true,
+    //         'show_admin_column' => true,
+    //         'show_in_nav_menus' => true,
+	// 	)
+	// );
 
 	add_filter('woocommerce_show_page_title', '__return_true', 1);
 	add_filter('woocommerce_single_product_summary', 'woocommerce_template_single_title', 6);

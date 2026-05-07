@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "acf/projets",
+	"title": "Projets",
+	"supports": {
+		"align": true
+	},
+	"category": "utopian",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "render.php"
+	}
+}
