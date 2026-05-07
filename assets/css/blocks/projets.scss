@@ -32,7 +32,7 @@ $projets-breakpoint-md: 900px;
 }
 
 // ---------- Bloque ----------
-.projets-block {	
+.projets-block {
 	// CSS custom properties expuestas para overrides desde el editor / tema.
 	--projets-bg:        #{$projets-bg};
 	--projets-card-bg:   #{$projets-card-bg};
@@ -286,11 +286,9 @@ $projets-breakpoint-md: 900px;
 		outline-offset: 3px;
 	}
 
-	// Hover sobre el thumb → revela panel glass + tags + escala imagen (mismo patrón que main)
-	&:hover {
-		transform: translateY(-4px);
-		opacity: 0.85;
-
+	// 👇 Hover O thumb activa → revela panel glass + tags + escala imagen
+	&:hover,
+	&.swiper-slide-thumb-active {
 		.projets-thumb__content,
 		.projets-thumb__tags {
 			opacity: 1;
@@ -302,8 +300,15 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
+	// Hover: leve elevación + opacidad intermedia
+	&:hover {
+		transform: translateY(-4px);
+		opacity: 0.85;
+	}
+
+	// Active: opacidad completa (la thumb del slide actualmente visible)
 	&.swiper-slide-thumb-active {
-		opacity: 1; // la thumb del slide actualmente visible
+		opacity: 1;
 	}
 
 	// ---------- Imagen de fondo (siempre visible) ----------
@@ -323,7 +328,7 @@ $projets-breakpoint-md: 900px;
 		}
 	}
 
-	// ---------- Panel glass (oculto por defecto, visible en hover) ----------
+	// ---------- Panel glass (oculto por defecto, visible en hover/active) ----------
 	&__content {
 		position: absolute;
 		top: 0;
