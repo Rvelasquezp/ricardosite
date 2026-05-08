@@ -497,3 +497,217 @@ html {
 	}
   }
 
+  .contact {
+    position: relative;
+    width: 100vw;
+    height: auto;
+    background-image: url('/assets/images/contact_bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+  
+	@media (max-width: 1024px) {
+		.wp-block-columns {
+			flex-wrap: wrap !important;			
+		}
+		.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+			flex-basis: 100% !important;
+		}
+	}
+
+    #gform_confirmation_message_1 {
+      font-family: var(--fuentePrincipal);
+      color: #f6f8f9;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      text-align: center;
+    }
+
+    .gform_wrapper {
+      &.gform-theme {
+        .ginput_container_name {
+          .name_first,
+          .name_last {
+            position: relative;
+            line-height: 14px;
+            display: inline-block;
+
+            label {
+              color: #bbe7ff;
+              font-family: var(--fuentePrincipal);
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 200;
+              line-height: normal;
+              position: absolute;
+              z-index: 2;
+              left: 20px;
+              top: 22px;
+              padding: 0 2px;
+              pointer-events: none;
+              -webkit-transition: -webkit-transform 100ms ease;
+              -moz-transition: -moz-transform 100ms ease;
+              -o-transition: -o-transform 100ms ease;
+              -ms-transition: -ms-transform 100ms ease;
+              transition: transform 100ms ease;
+              -webkit-transform: translateY(-12px);
+              -moz-transform: translateY(-12px);
+              -o-transform: translateY(-12px);
+              -ms-transform: translateY(-12px);
+              transform: translateY(-12px);
+            }
+
+            input {
+              background-color: transparent;
+              border: none;
+              border-radius: 4px;
+              border: 1px solid #bbe7ff;
+            }
+
+            input:invalid + label {
+              -webkit-transform: translateY(0);
+              -moz-transform: translateY(0);
+              -o-transform: translateY(0);
+              -ms-transform: translateY(0);
+              transform: translateY(0);
+            }
+
+            input:focus {
+              border-color: #bbe7ff;
+            }
+
+            input:focus + label {
+              color: #bbe7ff;
+              -webkit-transform: translateY(-20px);
+              -moz-transform: translateY(-20px);
+              -o-transform: translateY(-20px);
+              -ms-transform: translateY(-20px);
+              transform: translateY(-20px);
+            }
+          }
+        }
+
+        .gfield {
+          position: relative;
+          line-height: 14px;
+          display: inline-block;
+
+          .gfield_required {
+            display: none;
+          }
+
+          label {
+            color: #bbe7ff;
+            font-family: var(--fuentePrincipal);
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 200;
+            line-height: normal;
+            position: absolute;
+            z-index: 2;
+            left: 20px;
+            top: 22px;
+            padding: 0 2px;
+            pointer-events: none;
+            -webkit-transition: -webkit-transform 100ms ease;
+            -moz-transition: -moz-transform 100ms ease;
+            -o-transition: -o-transform 100ms ease;
+            -ms-transition: -ms-transform 100ms ease;
+            transition: transform 100ms ease;
+            -webkit-transform: translateY(-12px);
+            -moz-transform: translateY(-12px);
+            -o-transform: translateY(-12px);
+            -ms-transform: translateY(-12px);
+            transform: translateY(-12px);
+          }
+
+          .ginput_container {
+            input,
+            textarea {
+              background-color: transparent;
+              border: none;
+              border-radius: 4px;
+              border: 1px solid #bbe7ff;
+              padding-left: 20px;
+              color: #bbe7ff;
+              font-family: var(--fuentePrincipal);
+              font-size: 18px;
+              font-style: normal;
+              font-weight: 200;
+              line-height: normal;
+
+              &::-ms-input-placeholder {
+                /* Edge 12-18 */
+                background-color: transparent;
+                border: none;
+                color: #bbe7ff;
+                font-family: var(--fuentePrincipal);
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 200;
+                line-height: normal;
+              }
+
+              &::placeholder {
+                background-color: transparent;
+                border: none;
+                color: #bbe7ff;
+                font-family: var(--fuentePrincipal);
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 200;
+                line-height: normal;
+              }
+            }
+          }
+
+          input:invalid + label {
+            -webkit-transform: translateY(0);
+            -moz-transform: translateY(0);
+            -o-transform: translateY(0);
+            -ms-transform: translateY(0);
+            transform: translateY(0);
+          }
+
+          input:focus {
+            border-color: #bbe7ff;
+          }
+
+          input:focus + label {
+            color: #bbe7ff;
+            -webkit-transform: translateY(-20px);
+            -moz-transform: translateY(-20px);
+            -o-transform: translateY(-20px);
+            -ms-transform: translateY(-20px);
+            transform: translateY(-20px);
+          }
+        }
+
+        .gform_footer {
+          justify-content: flex-end;
+
+          .gform_button {
+            border-radius: 4px;
+            background: #bbe7ff;
+            color: #0a2144;
+            font-family: var(--fuentePrincipal);
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            border: 2px solid #bbe7ff;
+            padding: 22px 22px;
+
+            &:hover {
+              background-color: #ebf8ff;
+            }
+          }
+        }
+      }
+    }
+  }
+
