@@ -501,10 +501,14 @@ html {
     position: relative;
     width: 100vw;
     height: auto;
+	
     background-image: url('/assets/images/contact_bg.png');
     background-size: cover;
-    background-position: center;
+    // background-position: center;
+	background-position: 0% center;
     background-repeat: no-repeat; 
+
+	will-change: background-position;
   
 	@media (max-width: 1024px) {
 		.wp-block-columns {
@@ -711,3 +715,92 @@ html {
     }
   }
 
+
+  footer {
+	position: relative;
+	background-color: #1a1c21;
+	padding-top: 4.8125vh !important;
+    padding-bottom: 4.8125vh !important;
+	border-top: 1px solid #f6f8f9c9;
+	.footer_columns {
+		.left {
+			.row_info {
+				gap: 3rem;
+				@media (max-width: 1180px) {
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.stack_info {
+					@media (max-width: 1180px) {						
+						justify-content: center;
+						align-items: center;
+					}
+				}
+
+				h5 {
+					font-size: clamp(1.8rem, 3vw, 2rem);
+					line-height: 1.2;
+					font-weight: 600 !important;
+				}
+				
+				h6 {
+					font-size: clamp(1.6rem, 3vw, 1.8rem);
+					line-height: 1.2;
+					font-weight: 600 !important;
+				}
+				
+			}
+		}
+
+		.right{
+			.right_columns {
+				justify-content: flex-end;
+				@media (max-width: 1180px) {
+					justify-content: center;
+				}
+				.left_in {
+
+					.stack_in {
+						@media (max-width: 1180px) {
+							justify-content: center;
+							align-items: center;
+						}
+					}
+					 .row_left_in {
+						 gap: 2rem;
+					 }
+				}	
+				
+				.right_in {
+					.stack_in {
+						@media (max-width: 1180px) {
+							justify-content: center;
+							align-items: center;
+						}
+					}
+				}
+			}
+		}		
+	}
+
+	a{ 
+		transition: color 0.3s ease-in-out;
+		&:hover {
+			color: #bbe7ff;
+		}
+
+		@media (max-width: 1324px) {
+			font-size: clamp(1.6rem, 2vw, 1.7rem);
+		}
+	}
+	@media (max-width: 1180px) {
+		.wp-block-columns {
+			flex-wrap: wrap !important;			
+		}
+		.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+			flex-basis: 100% !important;
+		}
+	}
+  }

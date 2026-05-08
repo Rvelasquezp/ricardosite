@@ -24,14 +24,17 @@ $projets-side-padding: 7.8125vw;
 	height: auto;
 	background-image: url('/assets/images/section3_back.png');
 	background-size: cover;
-	background-position: center;
+	// background-position: center;
+	background-position: 0% center;
 	background-repeat: no-repeat;
 	padding-top: 120px;
 	padding-bottom: 120px;
-	background-attachment: fixed;
+	// background-attachment: fixed;
 	overflow: hidden; // 👈 imprescindible: clipea el negative margin del thumbs
 	padding-left: $projets-side-padding;
 	padding-right: $projets-side-padding; // 👈 RESTAURADO
+	
+	will-change: background-position;
 
 	@media (max-width: 1200px) {
 		.wp-block-columns {

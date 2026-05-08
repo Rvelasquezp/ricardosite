@@ -1,0 +1,82 @@
+// Variables de colores
+
+$charcoal: #495156; // Gris oscuro con un tono azulado
+$vert: #bbe7ff; // verde azulado vibrante
+$light_gray: #d4d4d4; // gris claro neutro
+$very_light_gray: #e8e8e8; //gris muy claro
+$white: #ffffff; //blanco
+.wp-block-social-links {
+	position: relative;
+	gap: 2rem;
+	max-width: 100%;
+	margin: 0 !important;
+	flex-wrap: nowrap;
+
+	@media screen and (max-width: 1100px) {
+		padding-left: 0;
+	}
+
+	li {
+		background-color: transparent !important;
+		&.wp-social-link {
+			transition: transform 0.3s ease-in-out;
+			&:hover {
+				transform: none;
+			}
+
+			a {
+				padding: 0;
+				svg {
+					width: 2.2rem;
+					height: 2.2rem;
+					fill: #ffffff;
+					transition: fill 0.2s ease-in-out;
+					* {
+						fill: #ffffff;
+						transition: fill 0.2s ease-in-out;
+					}
+				}
+
+				&:hover {
+					svg {
+						fill: $vert;
+						* {
+							fill: $vert;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+header {
+	.wp-block-social-links {
+		li {
+			&.wp-social-link {
+				a {
+					padding: 0;
+					svg {
+						width: 2.2rem;
+						height: 2.2rem;
+						fill: $charcoal;
+						transition: fill 0.2s ease-in-out;
+						* {
+							fill: $charcoal;
+							transition: fill 0.2s ease-in-out;
+						}
+					}
+
+					&:hover {
+						svg {
+							fill: $vert;
+							* {
+								fill: $vert;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

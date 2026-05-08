@@ -3,59 +3,54 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function PrincipalBannerParallax() {
-	const banner = document.querySelector(".principal_banner");
-	if (!banner) return;
+function PrincipalBannerParallax(selector, amounts) {
+	const sections = document.querySelectorAll(selector);
 
-	const mm = gsap.matchMedia();
+	if (!sections.length) return;
 
-	// 🖥️ Desktop: parallax fuerte
-	mm.add("(min-width: 1025px)", () => {
-		const tween = gsap.to(banner, {
-			backgroundPositionX: "100%",
-			ease: "none",
-			scrollTrigger: {
-				trigger: banner,
-				start: "top bottom",
-				end: "bottom top",
-				scrub: true,
-			},
-		});
-		return () => tween.kill(); // limpieza al cambiar de breakpoint
+	sections.forEach((section) => {
+		const mm = gsap.matchMedia();
+
+		const setup = (mediaQuery, xValue) => {
+			mm.add(mediaQuery, () => {
+				const tween = gsap.to(section, {
+					backgroundPosition: `${xValue} center`,
+					ease: "none",
+
+					scrollTrigger: {
+						trigger: section,
+						start: "top bottom",
+						end: "bottom top",
+						scrub: true,
+					},
+				});
+
+				return () => tween.kill();
+			});
+		};
+
+		setup("(min-width: 1025px)", amounts.desktop);
+		setup("(min-width: 768px) and (max-width: 1024px)", amounts.tablet);
+		setup("(max-width: 767px)", amounts.mobile);
+	});
+}
+
+export default function sectionParallax() {
+	PrincipalBannerParallax(".principal_banner", {
+		desktop: "100%",
+		tablet: "60%",
+		mobile: "30%",
 	});
 
-	// 💻 Tablet: parallax suave
-	mm.add("(min-width: 768px) and (max-width: 1024px)", () => {
-		const tween = gsap.to(banner, {
-			backgroundPositionX: "60%",
-			ease: "none",
-			scrollTrigger: {
-				trigger: banner,
-				start: "top bottom",
-				end: "bottom top",
-				scrub: true,
-			},
-		});
-		return () => tween.kill();
+	PrincipalBannerParallax(".projets", {
+		desktop: "80%",
+		tablet: "50%",
+		mobile: "30%",
 	});
 
-	// 📱 Mobile: parallax mínimo (o lo desactivas si prefieres)
-	mm.add("(max-width: 767px)", () => {
-		const tween = gsap.to(banner, {
-			backgroundPositionX: "30%",
-			ease: "none",
-			scrollTrigger: {
-				trigger: banner,
-				start: "top bottom",
-				end: "bottom top",
-				scrub: true,
-			},
-		});
-		return () => tween.kill();
+	PrincipalBannerParallax(".contact", {
+		desktop: "70%",
+		tablet: "40%",
+		mobile: "20%",
 	});
-
-	// 🤚 Si quieres desactivar en móvil completamente, reemplaza el bloque mobile por:
-	// mm.add("(max-width: 767px)", () => {
-	//     gsap.set(banner, { backgroundPositionX: "0%" });
-	// });
 }

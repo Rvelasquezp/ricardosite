@@ -4,6 +4,7 @@ import "/assets/css/style.scss";
 // import parts styles
 import "/assets/css/parts/paragraph.scss";
 import "/assets/css/parts/header.scss";
+import "/assets/css/parts/social_icons.scss";
 
 // import block styles
 import "/assets/css/blocks/accordion.scss";
