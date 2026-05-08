@@ -51,7 +51,12 @@
 					"color": "#628CC8",
 					"name": "Bluesemi",
 					"slug": "bluesemi"
-				}				
+				}, 	
+				{
+					"color": "#f6f8f9",
+					"name": "Grispale",
+					"slug": "grispale"
+				}			
 			]
 		},
 		"border": {

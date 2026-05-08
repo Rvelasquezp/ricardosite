@@ -111,8 +111,7 @@ export default function HeaderShrink() {
 				header,
 				{
 					boxShadow: "0 6px 24px rgba(0, 0, 0, 0.25)",
-					backdropFilter: "blur(8px)",
-					webkitBackdropFilter: "blur(8px)",
+					backdropFilter: "blur(8px)",					
 					ease: "none",
 				},
 				0

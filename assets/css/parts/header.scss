@@ -10,6 +10,12 @@ header {
 		width: 100%;
 		z-index: 99;				
 		background-color: #1a1c21;
+		transition: backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
+
+		&.is-shrunk {
+			backdrop-filter: blur(8px);
+			-webkit-backdrop-filter: blur(8px);
+		}
 
 		.header-main-columns {
 			display: flex;
@@ -48,7 +54,7 @@ header {
 						max-width: 10.14583333vw;
 						width: 100%;						
 						@media screen and (max-width: 1024px) {
-							max-width: 22.14583333vw;
+							max-width: 12.14583333vw;
 							width: 100%;
 						}
 

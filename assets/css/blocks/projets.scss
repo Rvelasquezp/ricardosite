@@ -32,6 +32,16 @@ $projets-side-padding: 7.8125vw;
 	overflow: hidden; // 👈 imprescindible: clipea el negative margin del thumbs
 	padding-left: $projets-side-padding;
 	padding-right: $projets-side-padding; // 👈 RESTAURADO
+
+	@media (max-width: 1200px) {
+		.wp-block-columns {
+			flex-wrap: wrap !important;
+			flex-direction: column-reverse;
+		}
+		.wp-block-columns:not(.is-not-stacked-on-mobile) > .wp-block-column {
+			flex-basis: 100% !important;
+		}
+	}
 }
 
 // ---------- Bloque ----------
