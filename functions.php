@@ -1,6 +1,260 @@
 <?php
 require_once get_template_directory() . '/theme-includes.php';
 
+// ── i18n: cambiar idioma según cookie ──
+add_filter('locale', 'theme_custom_locale');
+function theme_custom_locale($locale) {
+	if (isset($_COOKIE['site_language'])) {
+		$lang = sanitize_text_field($_COOKIE['site_language']);
+		if ($lang === 'fr') return 'fr_FR';
+		if ($lang === 'en') return 'en_US';
+		if ($lang === 'es') return 'es_ES';
+	}
+	return $locale;
+}
+
+// ── i18n: mapa de páginas  'ruta-en' => 'ruta-fr' ──
+// Usa el path completo para páginas hijas (ej: 'en/about' => 'a-propos')
+function theme_page_language_map() {
+	return [
+		'en'         => '',           // /en        ↔  / (front page EN)
+		'es'        => '',           // /es          ↔  / (front page ES)
+		// 'en/about'  => 'a-propos',
+		// 'es/about'  => 'a-propos',
+	];
+}
+
+// Idiomas soportados — agregar aquí cuando se cree la página y contenido
+function theme_supported_languages() {
+	return ['fr', 'en', 'es'];
+}
+
+// ── i18n: detección automática del idioma del browser (solo primer visita) ──
+add_action('template_redirect', 'theme_detect_browser_language', 5);
+function theme_detect_browser_language() {
+	if (isset($_COOKIE['site_language'])) return;
+	if (isset($_GET['set_lang'])) return;
+
+	$accept = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '';
+	$lang   = 'fr'; // francés por defecto
+
+	// Parsear Accept-Language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7
+	preg_match_all('/([a-z]{2})(?:-[a-z]{2})?(?:;q=([0-9.]+))?/i', $accept, $matches, PREG_SET_ORDER);
+	$scores = [];
+	foreach ($matches as $m) {
+		$code   = strtolower($m[1]);
+		$q      = isset($m[2]) && $m[2] !== '' ? (float) $m[2] : 1.0;
+		if (!isset($scores[$code]) || $scores[$code] < $q) $scores[$code] = $q;
+	}
+
+	$fr_q = $scores['fr'] ?? 0;
+	$en_q = $scores['en'] ?? 0;
+	$es_q = $scores['es'] ?? 0;
+
+	// Gana el idioma con mayor score; francés es el default en caso de empate
+	$best = max($fr_q, $en_q, $es_q);
+	if ($best > 0 && $best === $en_q && $en_q > $fr_q) $lang = 'en';
+	if ($best > 0 && $best === $es_q && $es_q > $fr_q) $lang = 'es';
+
+	setcookie('site_language', $lang, time() + YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true);
+	$_COOKIE['site_language'] = $lang;
+
+	// Si el browser prefiere otro idioma y estamos en la homepage francesa → redirigir
+	if ($lang !== 'fr' && is_front_page()) {
+		foreach (theme_page_language_map() as $other_path => $fr_path) {
+			if ($fr_path === '' && strpos($other_path, $lang) === 0) {
+				$other_page = get_page_by_path($other_path);
+				if ($other_page) {
+					wp_safe_redirect(get_permalink($other_page));
+					exit;
+				}
+				break;
+			}
+		}
+	}
+}
+
+// ── i18n: interceptar ?set_lang=XX → cookie → redirigir a la página equivalente ──
+add_action('template_redirect', 'theme_handle_language_switch', 10);
+function theme_handle_language_switch() {
+	if (!isset($_GET['set_lang'])) return;
+
+	$lang = sanitize_text_field($_GET['set_lang']);
+	if (!in_array($lang, theme_supported_languages(), true)) return;
+
+	setcookie('site_language', $lang, time() + YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true);
+
+	$map      = theme_page_language_map();
+	$current  = get_queried_object();
+	$redirect = remove_query_arg('set_lang');
+
+	if (!($current instanceof WP_Post)) {
+		wp_safe_redirect($redirect);
+		exit;
+	}
+
+	$current_path = get_page_uri($current);
+
+	// Paso 1: encontrar el "base FR" de la página actual
+	$fr_base = null;
+	if (is_front_page()) {
+		$fr_base = '';
+	} else {
+		foreach ($map as $map_path => $map_fr_base) {
+			if ($map_path === $current_path || $map_fr_base === $current_path) {
+				$fr_base = $map_fr_base;
+				break;
+			}
+		}
+	}
+
+	if ($fr_base === null) {
+		wp_safe_redirect($redirect);
+		exit;
+	}
+
+	// Paso 2: si el target es francés → ir a la página base FR
+	if ($lang === 'fr') {
+		$redirect = ($fr_base === '') ? home_url('/') : get_permalink(get_page_by_path($fr_base));
+		wp_safe_redirect($redirect ?: home_url('/'));
+		exit;
+	}
+
+	// Paso 3: buscar la página del idioma target en el mapa
+	foreach ($map as $map_path => $map_fr_base) {
+		if ($map_fr_base !== $fr_base) continue;
+		// La clave del mapa empieza con el código de idioma: 'en', 'es', 'en/about', 'es/about'
+		if ($map_path === $lang || strpos($map_path, $lang . '/') === 0) {
+			$target = get_page_by_path($map_path);
+			$redirect = $target ? get_permalink($target) : home_url('/');
+			break;
+		}
+	}
+
+	wp_safe_redirect($redirect ?: home_url('/'));
+	exit;
+}
+
+// ── i18n: hreflang tags para SEO (genérico para N idiomas) ──
+add_action('wp_head', 'theme_hreflang_tags');
+function theme_hreflang_tags() {
+	$map     = theme_page_language_map();
+	$current = get_queried_object();
+	$urls    = []; // [ 'fr' => url, 'en' => url, 'es' => url ]
+
+	if (is_front_page()) {
+		$urls['fr'] = home_url('/');
+		foreach ($map as $map_path => $map_fr_base) {
+			if ($map_fr_base !== '') continue;
+			$lang_code  = explode('/', $map_path)[0];
+			$page       = get_page_by_path($map_path);
+			if ($page) $urls[$lang_code] = get_permalink($page);
+		}
+	} elseif ($current instanceof WP_Post) {
+		$current_path = get_page_uri($current);
+		$fr_base      = null;
+
+		foreach ($map as $map_path => $map_fr_base) {
+			if ($map_path === $current_path) {
+				$lang_code        = explode('/', $map_path)[0];
+				$urls[$lang_code] = get_permalink($current);
+				$fr_base          = $map_fr_base;
+				break;
+			}
+			if ($map_fr_base === $current_path) {
+				$urls['fr'] = get_permalink($current);
+				$fr_base    = $map_fr_base;
+				break;
+			}
+		}
+
+		if ($fr_base !== null) {
+			if (!isset($urls['fr'])) {
+				$urls['fr'] = ($fr_base === '') ? home_url('/') : get_permalink(get_page_by_path($fr_base));
+			}
+			foreach ($map as $map_path => $map_fr_base) {
+				if ($map_fr_base !== $fr_base || $map_path === $current_path) continue;
+				$lang_code = explode('/', $map_path)[0];
+				$page      = get_page_by_path($map_path);
+				if ($page) $urls[$lang_code] = get_permalink($page);
+			}
+		}
+	}
+
+	if (empty($urls)) return;
+
+	foreach ($urls as $lang_code => $url) {
+		printf('<link rel="alternate" hreflang="%s" href="%s">' . "\n\t", esc_attr($lang_code), esc_url($url));
+	}
+	printf('<link rel="alternate" hreflang="x-default" href="%s">' . "\n", esc_url($urls['fr'] ?? home_url('/')));
+}
+
+// ── i18n: agregar clase lang-fr / lang-en / lang-es al <body> ──
+add_filter('body_class', 'theme_body_language_class');
+function theme_body_language_class($classes) {
+	$lang      = isset($_COOKIE['site_language']) ? sanitize_text_field($_COOKIE['site_language']) : 'fr';
+	$classes[] = 'lang-' . $lang;
+	return $classes;
+}
+
+// ── i18n: intercambiar formulario Gravity Forms según idioma ──
+add_filter('render_block', 'theme_swap_gravity_form', 10, 2);
+function theme_swap_gravity_form($content, $block) {
+	if ($block['blockName'] !== 'gravityforms/form') return $content;
+
+	$forms = [
+		'fr' => 1,  // Contact fr
+		'en' => 2,  // Contact en
+		'es' => 3,  // Contact es
+	];
+
+	$current_id = (int)($block['attrs']['formId'] ?? 0);
+
+	// Solo actuar si el bloque usa uno de nuestros formularios
+	if (!in_array($current_id, $forms, true)) return $content;
+
+	$lang      = isset($_COOKIE['site_language']) ? sanitize_text_field($_COOKIE['site_language']) : 'fr';
+	$target_id = $forms[$lang] ?? $forms['fr'];
+
+	// Ya está mostrando el formulario correcto
+	if ($current_id === $target_id) return $content;
+
+	return render_block([
+		'blockName'   => 'gravityforms/form',
+		'attrs'       => array_merge($block['attrs'], ['formId' => (string)$target_id]),
+		'innerBlocks' => [],
+	]);
+}
+
+// ── i18n: intercambiar menú de navegación según idioma (un solo header) ──
+add_filter('render_block', 'theme_swap_navigation_menu', 10, 2);
+function theme_swap_navigation_menu($content, $block) {
+	if ($block['blockName'] !== 'core/navigation') return $content;
+
+	$menus = [
+		'fr' => 4,    // Menu FR  — ID del menú en Site Editor
+		'en' => 252,  // Menu EN  — ID del menú en Site Editor
+		'es' => 253,  // Menu ES  — ID del menú en Site Editor
+	];
+
+	$current_ref = $block['attrs']['ref'] ?? null;
+
+	// Solo actuar si el bloque usa uno de nuestros menús
+	if (!in_array($current_ref, $menus, true)) return $content;
+
+	$lang       = isset($_COOKIE['site_language']) ? sanitize_text_field($_COOKIE['site_language']) : 'fr';
+	$target_id  = $menus[$lang] ?? $menus['fr'];
+
+	// Ya está mostrando el menú correcto
+	if ($current_ref === $target_id) return $content;
+
+	return render_block([
+		'blockName'   => 'core/navigation',
+		'attrs'       => array_merge($block['attrs'], ['ref' => $target_id]),
+		'innerBlocks' => [],
+	]);
+}
+
 if (!function_exists('theme_setup')) {
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
@@ -15,6 +269,9 @@ if (!function_exists('theme_setup')) {
 
 		// Enqueue editor styles.
 		add_editor_style(['assets/css/editor-style.css', 'build/style-index.css', 'build/index.css']);
+
+		// Cargar traducciones del tema desde /languages
+		load_theme_textdomain('utopian-theme', get_template_directory() . '/languages');
 	}
 }
 
@@ -163,6 +420,7 @@ class JSXBlock
 new JSXBlock('accordion', true);
 new JSXBlock('hamburger', true);
 new JSXBlock('projets', true);
+new JSXBlock('language-switcher');
 
 // change icon login page
 function custom_login_logo_svg() {

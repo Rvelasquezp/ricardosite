@@ -1,5 +1,17 @@
-<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-<div class="wp-block-group"><!-- wp:site-logo /-->
-
-    <!-- wp:navigation {"ref":6} /--></div>
+<!-- wp:group {"tagName":"header","className":"header-main","layout":{"type":"default"}} -->
+<header class="wp-block-group header-main"><!-- wp:group {"className":"header-main-columns","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+    <div class="wp-block-group header-main-columns"><!-- wp:site-logo {"shouldSyncIcon":false} /-->
+    
+    <!-- wp:navigation {"ref":4,"overlayMenu":"never","className":"desktop-only"} /-->
+    
+    <!-- wp:utopian/language-switcher /-->
+    
+    <!-- wp:utopian/hamburger /--></div>
+    <!-- /wp:group --></header>
+    <!-- /wp:group -->
+    
+    <!-- wp:group {"tagName":"header","className":"mobile-nav","layout":{"type":"constrained"}} -->
+    <header class="wp-block-group mobile-nav"><!-- wp:group {"className":"menu_column","layout":{"type":"flex","orientation":"vertical"}} -->
+    <div class="wp-block-group menu_column"><!-- wp:navigation {"ref":4,"overlayMenu":"never"} /--></div>
+    <!-- /wp:group --></header>
     <!-- /wp:group -->

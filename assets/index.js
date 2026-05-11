@@ -10,6 +10,7 @@ import "/assets/css/parts/social_icons.scss";
 import "/assets/css/blocks/accordion.scss";
 import "/assets/css/blocks/hamburguer.scss";
 import "/assets/css/blocks/projets.scss";
+import "/assets/css/blocks/language_switcher.scss";
 
 // import Swiper styles
 import "swiper/css";
