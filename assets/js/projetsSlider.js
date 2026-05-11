@@ -45,6 +45,11 @@ export default function projetsSlider() {
 					prevSlideMessage: "Projet précédent",
 					nextSlideMessage: "Projet suivant",
 				},
+				on: {
+					slideChange: function () {
+						thumbs.slideTo(this.realIndex);
+					},
+				},
 			});
 		}
 	}
