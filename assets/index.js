@@ -11,6 +11,10 @@ import "/assets/css/blocks/accordion.scss";
 import "/assets/css/blocks/hamburguer.scss";
 import "/assets/css/blocks/projets.scss";
 import "/assets/css/blocks/language_switcher.scss";
+import "/assets/css/blocks/pdf_buttons.scss";
+
+// import parts styles (popup)
+import "/assets/css/parts/popup.scss";
 
 // import Swiper styles
 import "swiper/css";
@@ -26,6 +30,7 @@ import { prepareAccordions } from "./js/prepareAccordions";
 import  PrincipalBannerParallax from "./js/PrincipalBannerParallax";
 import  HeaderShrink from "./js/HeaderShrink";
 import projetsSlider from "./js/projetsSlider";
+import initPopup from "./js/popup";
 
 
 
@@ -411,6 +416,7 @@ prepareAccordions(gsap);
 PrincipalBannerParallax();
 HeaderShrink();
 projetsSlider();
+initPopup();
 
 gsap.to("html", {
 	autoAlpha: 1,

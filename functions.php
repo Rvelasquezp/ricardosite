@@ -432,6 +432,7 @@ new JSXBlock('accordion', true);
 new JSXBlock('hamburger', true);
 new JSXBlock('projets', true);
 new JSXBlock('language-switcher');
+new JSXBlock('pdf-buttons');
 
 // change icon login page
 function custom_login_logo_svg() {
@@ -544,6 +545,57 @@ add_action('admin_menu', function() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
 });
+
+
+// popup 
+
+function add_popup()
+{
+	$custom_logo_id = get_theme_mod('custom_logo');
+    $logo_url = wp_get_attachment_image_url($custom_logo_id, 'full');
+	?>
+	<div id="popup" class="popup">
+		<div class="popup_banner">
+			<figure>
+				<img src="<?php echo esc_url($logo_url); ?>" alt="">
+			</figure>
+			<span class="popup-close">
+				<svg xmlns="http://www.w3.org/2000/svg" width="29.901" height="29.901" viewBox="0 0 29.901 29.901">
+					<g id="Composant_183_3" data-name="Composant 183 – 3" transform="translate(0 0)">
+						<g id="Menu" transform="translate(0 0)">
+							<path id="Menu-2" data-name="Menu" d="M7.08.05,33.95,26.92l-3.03,3.03L4.049,3.08Z"
+								transform="translate(-4.049 -0.05)" fill="#fff" />
+						</g>
+						<g id="Menu-3" data-name="Menu" transform="translate(0 29.901) rotate(-90)">
+							<path id="Menu-4" data-name="Menu" d="M7.08.05,33.95,26.92l-3.03,3.03L4.049,3.08Z"
+								transform="translate(-4.049 -0.05)" fill="#fff" />
+						</g>
+					</g>
+				</svg>
+			</span>
+		</div>
+		<div class="popup-content">
+			<?php
+			$lang      = isset($_COOKIE['site_language']) ? sanitize_text_field($_COOKIE['site_language']) : 'fr';
+			$field_map = ['fr' => 'file_fr', 'en' => 'file_en', 'es' => 'file_es'];
+			$file      = get_field($field_map[$lang] ?? 'file_fr', 'option');
+			$file_url  = is_array($file) ? ($file['url'] ?? '') : (is_string($file) ? $file : '');
+			if ($file_url) : ?>
+				<object data="<?php echo esc_url($file_url); ?>" type="application/pdf" width="100%" height="100%">
+					<p style="color:#fff;text-align:center;padding:2rem">
+						<?php echo $lang === 'en' ? 'Unable to display PDF.' : ($lang === 'es' ? 'No se puede mostrar el PDF.' : 'Impossible d\'afficher le PDF.'); ?>
+						<a href="<?php echo esc_url($file_url); ?>" style="color:#fff" target="_blank">
+							<?php echo $lang === 'en' ? 'Download' : ($lang === 'es' ? 'Descargar' : 'Télécharger'); ?>
+						</a>
+					</p>
+				</object>
+			<?php endif; ?>
+		</div>
+	</div>
+<?php
+}
+add_action('wp_footer', 'add_popup');
+// popup 
 
 
 // hide admin bar
