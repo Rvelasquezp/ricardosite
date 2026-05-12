@@ -49,12 +49,23 @@ function theme_detect_browser_language() {
 
 	$fr_q = $scores['fr'] ?? 0;
 	$en_q = $scores['en'] ?? 0;
-	$es_q = $scores['es'] ?? 0;
 
-	// Gana el idioma con mayor score; francés es el default en caso de empate
-	$best = max($fr_q, $en_q, $es_q);
-	if ($best > 0 && $best === $en_q && $en_q > $fr_q) $lang = 'en';
-	if ($best > 0 && $best === $es_q && $es_q > $fr_q) $lang = 'es';
+	// Solo detectar inglés automáticamente — español se activa manualmente
+	// cuando el contenido en ES esté listo
+	if ($en_q > $fr_q) $lang = 'en';
+
+	// Verificar que la página del idioma detectado existe antes de usarla
+	if ($lang !== 'fr') {
+		$map    = theme_page_language_map();
+		$exists = false;
+		foreach ($map as $map_path => $map_fr_base) {
+			if ($map_path === $lang || strpos($map_path, $lang . '/') === 0) {
+				if (get_page_by_path($map_path)) $exists = true;
+				break;
+			}
+		}
+		if (!$exists) $lang = 'fr';
+	}
 
 	setcookie('site_language', $lang, time() + YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true);
 	$_COOKIE['site_language'] = $lang;
@@ -536,5 +547,5 @@ add_action('admin_menu', function() {
 
 
 // hide admin bar
-add_filter('show_admin_bar', '__return_false');
+// add_filter('show_admin_bar', '__return_false');
 // hide admin bar

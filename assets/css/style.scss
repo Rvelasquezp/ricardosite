@@ -692,24 +692,26 @@ html {
         .gform_footer {
           justify-content: flex-end;
 
-          .gform_button {
-            border-radius: 4px;
-            background: #bbe7ff;
-            color: #0a2144;
-            font-family: var(--fuentePrincipal);
-            font-size: 12px;
-            font-style: normal;
-            font-weight: 600;
-            line-height: normal;
-            letter-spacing: 1.4px;
-            text-transform: uppercase;
-            border: 2px solid #bbe7ff;
-            padding: 22px 22px;
-
-            &:hover {
-              background-color: #ebf8ff;
-            }
-          }
+		  .gform_button {
+			border-radius: 4px !important;
+			background: #bbe7ff !important;
+			color: #0a2144 !important;
+			font-family: var(--fuentePrincipal) !important;
+			font-size: 14px !important;
+			font-style: normal !important;
+			font-weight: 400 !important;
+			line-height: normal !important;
+			letter-spacing: 1.4px !important;
+			text-transform: uppercase !important;
+			border: 2px solid #bbe7ff !important;
+			padding: 16px 42px !important;
+			transition: background-color 0.3s ease-in-out, border 0.3s ease-in-out !important;
+		  
+			&:hover {
+			  background-color: #ebf8ff !important;
+			  border: 2px solid #ebf8ff !important;
+			}
+		  }
         }
       }
     }
