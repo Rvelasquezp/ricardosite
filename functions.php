@@ -85,6 +85,32 @@ function theme_detect_browser_language() {
 	}
 }
 
+// ── i18n: sincronizar cookie cuando se aterriza directo en página de idioma ──
+// Ej: visitar /en directamente sin pasar por el switcher actualiza cookie a 'en'
+add_action('template_redirect', 'theme_sync_cookie_from_page', 6);
+function theme_sync_cookie_from_page() {
+	if ( isset( $_GET['set_lang'] ) ) return; // ya lo maneja theme_handle_language_switch
+	if ( ! is_singular() ) return;
+
+	$post = get_queried_object();
+	if ( ! ( $post instanceof WP_Post ) ) return;
+
+	$current_path = get_page_uri( $post );
+	$langs        = theme_supported_languages();
+
+	foreach ( theme_page_language_map() as $map_path => $fr_base ) {
+		if ( $map_path !== $current_path ) continue;
+
+		$lang = explode( '/', $map_path )[0];
+		if ( ! in_array( $lang, $langs, true ) ) break;
+
+		// Actualizar cookie para esta request Y para el browser
+		$_COOKIE['site_language'] = $lang;
+		setcookie( 'site_language', $lang, time() + YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN, is_ssl(), true );
+		return;
+	}
+}
+
 // ── i18n: interceptar ?set_lang=XX → cookie → redirigir a la página equivalente ──
 add_action('template_redirect', 'theme_handle_language_switch', 10);
 function theme_handle_language_switch() {

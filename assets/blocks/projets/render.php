@@ -12,6 +12,9 @@
 $block_id = 'projets-' . ( $block['id'] ?? uniqid() );
 $align    = ! empty( $block['align'] ) ? 'align' . $block['align'] : '';
 
+// --- Idioma actual ------------------------------------------------------
+$current_lang = isset( $_COOKIE['site_language'] ) ? sanitize_text_field( $_COOKIE['site_language'] ) : 'fr';
+
 // --- Query args ---------------------------------------------------------
 $args = array(
 	'post_type'      => 'projets',
@@ -19,6 +22,13 @@ $args = array(
 	'post_status'    => 'publish',
 	'orderby'        => 'menu_order date',
 	'order'          => 'ASC',
+	'meta_query'     => array(
+		array(
+			'key'     => 'lenguage',
+			'value'   => $current_lang,
+			'compare' => '=',
+		),
+	),
 );
 
 if ( get_field( 'projets' ) ) {
