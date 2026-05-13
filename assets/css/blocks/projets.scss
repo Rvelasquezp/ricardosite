@@ -232,14 +232,20 @@ $projets-side-padding: 7.8125vw;
 	}
 
 	@media (max-width: $projets-breakpoint-md) {
+
+		&__media {
+			width: 100%;
+			height: 100%;			
+		}
+		
 		&__slide {
 			min-height: 0;
-			aspect-ratio: 4 / 5;
+			aspect-ratio: 16 / 9;
 
-			.projets-main__content,
-			.projets-main__tags {
-				opacity: 1;
-			}
+			// .projets-main__content,
+			// .projets-main__tags {
+			// 	opacity: 1;
+			// }
 		}
 
 		&__content {

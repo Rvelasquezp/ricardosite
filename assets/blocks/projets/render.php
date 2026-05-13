@@ -63,7 +63,7 @@ $arrow_svg = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable=
 				$link_projet = get_field( 'link_projet', $post_id );
 				$lenguages   = get_field( 'lenguages',   $post_id );
 				$thumb_id    = get_post_thumbnail_id( $post_id );
-				$thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'large' ) : '';
+				$thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'full' ) : '';
 				$thumb_alt   = $thumb_id ? get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : get_the_title();
 				?>
 				<article class="swiper-slide projets-main__slide">
@@ -119,7 +119,7 @@ $arrow_svg = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable=
 					$link_projet = get_field( 'link_projet', $post_id );
 					$lenguages   = get_field( 'lenguages',   $post_id );
 					$thumb_id    = get_post_thumbnail_id( $post_id );
-					$thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium_large' ) : '';
+					$thumb_url   = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'large' ) : '';
 					$thumb_alt   = $thumb_id ? get_post_meta( $thumb_id, '_wp_attachment_image_alt', true ) : get_the_title();
 					?>
 					<article class="swiper-slide projets-thumb" tabindex="0">

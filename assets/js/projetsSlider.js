@@ -15,14 +15,14 @@ export default function projetsSlider() {
 			// Slider de thumbnails (cards pequeñas).
 			// IMPORTANTE: el thumbs NO se loopea, Swiper lo sincroniza via realIndex.
 			const thumbs = new Swiper(thumbsEl, {
-				slidesPerView: 1.15,
+				slidesPerView: 1.05,
 				spaceBetween: 16,
 				watchSlidesProgress: true,
 				slideToClickedSlide: true,
 				breakpoints: {
-					640: { slidesPerView: 1.5, spaceBetween: 20 },
-					1024: { slidesPerView: 2.5, spaceBetween: 24 },
-					1400: { slidesPerView: 2.5, spaceBetween: 28 },
+					640: { slidesPerView: 1.2, spaceBetween: 20 },
+					1025: { slidesPerView: 1.6, spaceBetween: 24 },
+					1520: { slidesPerView: 2.1, spaceBetween: 28 },
 				},
 			});
 
