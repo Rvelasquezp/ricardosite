@@ -624,6 +624,32 @@ add_action('wp_footer', 'add_popup');
 // popup 
 
 
+// Bloquear clic derecho y atajos de teclado para inspeccionar (sin alertas)
+add_action('wp_footer', function() {
+    ?>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+document.addEventListener('keydown', function(e) {
+    const key = e.key;
+    const keyCode = e.keyCode;
+
+    // Bloquea F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+    if (
+        keyCode === 123 || key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (keyCode === 73 || key === "I")) ||
+        (e.ctrlKey && e.shiftKey && (keyCode === 67 || key === "C")) ||
+        (e.ctrlKey && (keyCode === 85 || key === "U"))
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+<?php
+});
+// Bloquear clic derecho y atajos de teclado para inspeccionar (sin alertas)
+
 // hide admin bar
 // add_filter('show_admin_bar', '__return_false');
 // hide admin bar
