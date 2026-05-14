@@ -650,6 +650,22 @@ document.addEventListener('keydown', function(e) {
 });
 // Bloquear clic derecho y atajos de teclado para inspeccionar (sin alertas)
 
+function ingcloud_meta_description() {
+    if ( function_exists('wpseo_frontend_head_init') ) return;
+
+    $lang = isset($_COOKIE['site_language']) ? sanitize_text_field($_COOKIE['site_language']) : 'fr';
+
+    $descriptions = [
+        'fr' => 'Développeur WordPress avec plus de 8 ans d\'expérience.',
+		'en' => 'WordPress developer with over 8 years of experience.',
+		'es' => 'Desarrollador WordPress con más de 8 años de experiencia.',
+    ];
+
+    $desc = $descriptions[$lang] ?? $descriptions['fr'];
+    echo '<meta name="description" content="' . esc_attr($desc) . '">' . "\n";
+}
+add_action('wp_head', 'ingcloud_meta_description', 1);
+
 // hide admin bar
 // add_filter('show_admin_bar', '__return_false');
 // hide admin bar
