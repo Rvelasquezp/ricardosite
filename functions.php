@@ -465,7 +465,7 @@ function custom_login_logo_svg() {
 	?>
 <style type="text/css">
 #login h1 a {
-    background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/images/pixel.svg');
+    background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/images/logoingcloud.svg');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
