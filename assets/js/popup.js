@@ -46,10 +46,27 @@ export default function initPopup() {
 	}
 
 	openBtns.forEach((btn) => {
+
 		btn.addEventListener("click", () => {
+	
 			const url = btn.dataset.pdf;
-			if (url) openPopup(url);
+	
+			if (!url) return;
+	
+			const isMobile = window.innerWidth < 1024;
+	
+			if (isMobile) {
+	
+				window.open(url, "_blank");
+	
+			} else {
+	
+				openPopup(url);
+	
+			}
+	
 		});
+	
 	});
 
 	closeBtn.addEventListener("click", closePopup);

@@ -531,7 +531,16 @@ html {
 
     .gform_wrapper {
       &.gform-theme {
+
+		.gform_fields {
+			@media (max-width: 640px) {
+				gap: 2rem !important;
+			}
+		}
         .ginput_container_name {
+			@media (max-width: 640px) {
+				gap: 2rem;
+			}
           .name_first,
           .name_last {
             position: relative;
