@@ -329,7 +329,7 @@ add_action('admin_menu', 'add_customize_button_to_appearance_menu');
 
 function utopian_theme_scripts()
 {
-	$theme_version = '1.0.0';
+	$theme_version = '1.0.1';
 	wp_enqueue_style('style', get_stylesheet_directory_uri() . '/build/index.css', [], $theme_version);
 	wp_enqueue_style('theme-style', get_stylesheet_directory_uri() . '/build/style-index.css', [], $theme_version);
 	wp_enqueue_script('utopian', get_stylesheet_directory_uri() . '/build/index.js', [], $theme_version, true);
@@ -624,7 +624,31 @@ add_action('wp_footer', 'add_popup');
 // popup 
 
 
+// Bloquear clic derecho y atajos de teclado para inspeccionar (sin alertas)
+add_action('wp_footer', function() {
+    ?>
+<script>
+document.addEventListener('contextmenu', e => e.preventDefault());
 
+document.addEventListener('keydown', function(e) {
+    const key = e.key;
+    const keyCode = e.keyCode;
+
+    // Bloquea F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+U
+    if (
+        keyCode === 123 || key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (keyCode === 73 || key === "I")) ||
+        (e.ctrlKey && e.shiftKey && (keyCode === 67 || key === "C")) ||
+        (e.ctrlKey && (keyCode === 85 || key === "U"))
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+</script>
+<?php
+});
+// Bloquear clic derecho y atajos de teclado para inspeccionar (sin alertas)
 
 function ingcloud_meta_description() {
     if ( function_exists('wpseo_frontend_head_init') ) return;
