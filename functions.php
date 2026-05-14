@@ -90,7 +90,7 @@ function theme_detect_browser_language() {
 add_action('template_redirect', 'theme_sync_cookie_from_page', 6);
 function theme_sync_cookie_from_page() {
 	if ( isset( $_GET['set_lang'] ) ) return; // ya lo maneja theme_handle_language_switch
-	if ( ! is_singular() ) return;
+	if ( ! is_singular() || is_front_page() ) return; // front page = siempre fr, no sincronizar
 
 	$post = get_queried_object();
 	if ( ! ( $post instanceof WP_Post ) ) return;
